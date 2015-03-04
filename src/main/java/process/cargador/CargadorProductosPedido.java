@@ -1,9 +1,7 @@
 package process.cargador;
 
 import exception.ExceptionHttpGet;
-import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
@@ -11,7 +9,18 @@ import java.io.IOException;
 
 public class CargadorProductosPedido {
 
+    private static CargadorProductosPedido cargadorProductosPedido;
     private Integer idPedido;
+
+    private CargadorProductosPedido() {
+    }
+
+    public static CargadorProductosPedido getInstance() {
+        if (cargadorProductosPedido == null) {
+            cargadorProductosPedido = new CargadorProductosPedido();
+        }
+        return cargadorProductosPedido;
+    }
 
     public String cargar(Integer idPedido) {
         this.idPedido = idPedido;
@@ -19,12 +28,8 @@ public class CargadorProductosPedido {
     }
 
     private String ejecutarHttpGet() {
-        CloseableHttpClient httpClient = HttpClients.createDefault();
-        HttpGet request = crearHttpGet();
-
         try {
-            HttpResponse response = httpClient.execute(request);
-            return EntityUtils.toString(response.getEntity());
+            return EntityUtils.toString(HttpClients.createDefault().execute(crearHttpGet()).getEntity());
         } catch (IOException ex) {
             throw new ExceptionHttpGet();
         }

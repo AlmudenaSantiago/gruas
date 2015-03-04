@@ -1,9 +1,7 @@
 package process.cargador;
 
 import exception.ExceptionHttpGet;
-import org.apache.http.HttpResponse;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
 
@@ -11,18 +9,25 @@ import java.io.IOException;
 
 public class CargadorListaPedido {
 
+    private static CargadorListaPedido cargadorListaPedido;
 
     public String cargar() {
         return ejecutarHttpGet();
     }
 
-    private String ejecutarHttpGet() {
-        CloseableHttpClient httpClient = HttpClients.createDefault();
-        HttpGet request = crearHttpGet();
+    private CargadorListaPedido() {
+    }
 
+    public static CargadorListaPedido getInstance() {
+        if (cargadorListaPedido == null) {
+            cargadorListaPedido = new CargadorListaPedido();
+        }
+        return cargadorListaPedido;
+    }
+
+    private String ejecutarHttpGet() {
         try {
-            HttpResponse response = httpClient.execute(request);
-            return EntityUtils.toString(response.getEntity());
+            return EntityUtils.toString(HttpClients.createDefault().execute(crearHttpGet()).getEntity());
         } catch (IOException ex) {
             throw new ExceptionHttpGet();
         }
