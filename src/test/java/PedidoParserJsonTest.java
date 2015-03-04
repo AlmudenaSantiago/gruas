@@ -1,3 +1,4 @@
+import exception.ExceptionPedidoParserJson;
 import model.Pedido;
 import org.junit.Test;
 import process.parser.PedidoParserJson;
@@ -35,10 +36,9 @@ public class PedidoParserJsonTest {
         assertEquals(1.0, listaPedido.get(1).getImporte());
     }
 
-    @Test
+    @Test(expected = ExceptionPedidoParserJson.class)
     public void testIntentarParsearAlgoEnNoFormatoJson(){
-        PedidoParserJson pedidoParserJson = new PedidoParserJson();
-        //TODO hacer esta funcion
+        new PedidoParserJson().parsear("No formato JSON");
     }
 
     private String crearUnPedidoJson() {

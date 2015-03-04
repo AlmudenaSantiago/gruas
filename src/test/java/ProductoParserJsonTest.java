@@ -1,3 +1,4 @@
+import exception.ExceptionProductoParserJson;
 import model.Producto;
 import org.junit.Test;
 import process.parser.ProductoParserJson;
@@ -12,6 +13,11 @@ public class ProductoParserJsonTest {
     public void testParsearListaDeProductosDeUnPedido(){
         List<Producto> listProducto = new ProductoParserJson().parsear(crearListaProductoPedido());
         assertTrue(listProducto.size() == 2);
+    }
+
+    @Test(expected = ExceptionProductoParserJson.class)
+    public void testIntentarParsearAlgoEnNoFormatoJson(){
+        new ProductoParserJson().parsear("NO JSON");
     }
 
     private String crearListaProductoPedido() {
