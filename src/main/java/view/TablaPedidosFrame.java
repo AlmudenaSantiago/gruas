@@ -28,7 +28,7 @@ public class TablaPedidosFrame extends javax.swing.JFrame {
         initComponents();
         setTable();
         setVisible(true);
-        cargarProductosPedidoCommand = new CargarProductosPedidoCommand(new ProductoParserJson(), new CargadorProductosPedido());
+        cargarProductosPedidoCommand = new CargarProductosPedidoCommand(new ProductoParserJson(), CargadorProductosPedido.getInstance());
     }
 
     public void sincronizacion() {

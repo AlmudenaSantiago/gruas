@@ -13,7 +13,7 @@ public class Main {
         CargarPedidosCommand cargarPedidosCommand = new CargarPedidosCommand(new TablaPedidosFrame(),
                 CargadorListaPedido.getInstance(), new PedidoParserJson());
         tablaPedidosFrame.setCargarPedidosCommand(cargarPedidosCommand);
-        tablaPedidosFrame.setCargarProductosPedidoCommand(new CargarProductosPedidoCommand(new ProductoParserJson(), new CargadorProductosPedido()));
+        tablaPedidosFrame.setCargarProductosPedidoCommand(new CargarProductosPedidoCommand(new ProductoParserJson(), CargadorProductosPedido.getInstance()));
         tablaPedidosFrame.sincronizacion();
 
     }
