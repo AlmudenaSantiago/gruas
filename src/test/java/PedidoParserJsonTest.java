@@ -38,7 +38,7 @@ public class PedidoParserJsonTest {
     @Test
     public void testIntentarParsearAlgoEnNoFormatoJson(){
         PedidoParserJson pedidoParserJson = new PedidoParserJson();
-
+        //TODO hacer esta funcion
     }
 
     private String crearUnPedidoJson() {
