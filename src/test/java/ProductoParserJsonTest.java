@@ -10,8 +10,7 @@ public class ProductoParserJsonTest {
 
     @Test
     public void testParsearListaDeProductosDeUnPedido(){
-        ProductoParserJson parserJson = new ProductoParserJson();
-        List<Producto> listProducto = parserJson.parsear(crearListaProductoPedido());
+        List<Producto> listProducto = new ProductoParserJson().parsear(crearListaProductoPedido());
         assertTrue(listProducto.size() == 2);
     }
 

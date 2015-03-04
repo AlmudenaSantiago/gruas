@@ -11,11 +11,7 @@ public class CargadorProductosPedidoTest {
 
     @Test
     public void testSolicitudDeListaDePedidos(){
-        String listaDePedidosEnJson;
-        CargadorProductosPedido cargadorProductosPedido = new CargadorProductosPedido();
-        listaDePedidosEnJson = cargadorProductosPedido.cargar(20);
-        ProductoParserJson productoParserJson = new ProductoParserJson();
-        List<Producto> listaProducto = productoParserJson.parsear(listaDePedidosEnJson);
+        List<Producto> listaProducto = new ProductoParserJson().parsear(new CargadorProductosPedido().cargar(20));
         assertTrue(listaProducto.size() > 0);
     }
 }
