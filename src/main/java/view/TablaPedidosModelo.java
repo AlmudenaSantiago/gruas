@@ -11,12 +11,12 @@ public class TablaPedidosModelo extends AbstractTableModel {
     private List<Pedido> listaPedido;
 
     protected String[] columnNames = new String[] {
-            "NºPedido", "Usuario", "Cliente","Importe", "Fecha", "Detalle"
+            "NºPedido", "Usuario", "Cliente","Importe", "Fecha", "Detalle","Estado","Hacer factura"
     };
 
     protected Class[] columnClasses = new Class[] {
             Integer.class, String.class, String.class,
-            Double.class, String.class, JButton.class
+            Double.class, String.class, JButton.class,  String.class, JButton.class
     };
 
     @Override
@@ -36,7 +36,7 @@ public class TablaPedidosModelo extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 6;
+        return 8;
     }
 
     @Override
@@ -56,6 +56,11 @@ public class TablaPedidosModelo extends AbstractTableModel {
             case 5:
                 JButton jButton = new JButton("Más detalles");
                 return jButton;
+            case 6:
+                return pedido.getEstado();
+            case 7:
+                JButton jButtonFactura = new JButton("Generar Factura");
+                return jButtonFactura;
         }
         return null;
     }

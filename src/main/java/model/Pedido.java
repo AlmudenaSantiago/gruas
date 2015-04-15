@@ -4,9 +4,11 @@ import com.google.gson.annotations.SerializedName;
 
 public class Pedido {
 
-    private Integer id;
+    public Integer id;
+   
     private String cliente;
     private String usuario;
+    public String estado;
 
     @SerializedName("updated_at")
     private String fechaUltimaModificacion;
@@ -19,6 +21,9 @@ public class Pedido {
         return id;
     }
 
+     public String getEstado() {
+        return estado;
+    }
     public String getCliente() {
         return cliente;
     }

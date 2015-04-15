@@ -14,6 +14,8 @@ import java.awt.event.MouseEvent;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class TablaPedidosFrame extends javax.swing.JFrame {
@@ -40,7 +42,7 @@ public class TablaPedidosFrame extends javax.swing.JFrame {
             }
         };
 
-        timer.schedule(task, 0, 120000);
+        timer.schedule(task, 0, 1200);
     }
 
     private void setTable() {
@@ -67,6 +69,15 @@ public class TablaPedidosFrame extends javax.swing.JFrame {
                     cargarProductosPedidoCommand.execute((Integer) jTablePedido.getModel().getValueAt(
                             jTablePedido.rowAtPoint(e.getPoint()),0));
                 }
+                 if(jTablePedido.columnAtPoint(e.getPoint()) == 7) {
+                     GenerarFactura genera = new GenerarFactura((Integer) jTablePedido.getModel().getValueAt(
+                            jTablePedido.rowAtPoint(e.getPoint()),0));
+                    try {
+                        genera.actualizarEstado();
+                    } catch (Exception ex) {
+                        System.out.println("Excepcion en la llamada a actualizar");
+                    }
+                 }        
             }
         });
 
