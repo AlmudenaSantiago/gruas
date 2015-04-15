@@ -41,6 +41,16 @@
             <artifactId>httpclient</artifactId>
             <version>4.4</version>
         </dependency>
+        <dependency>
+            <groupId>itext-pdf</groupId>
+            <artifactId>itext-pdf</artifactId>
+            <version>5.5.5</version>
+        </dependency>
+        <dependency>
+            <groupId>itexpdf-5.5.5-javadoc</groupId>
+            <artifactId>itexpdf-5.5.5-javadoc</artifactId>
+            <version>5.5.5</version>
+        </dependency>
     </dependencies>
 
 </project>
