@@ -26,12 +26,6 @@
     </build>
     <dependencies>
         <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.2.4</version>
@@ -42,15 +36,16 @@
             <version>4.4</version>
         </dependency>
         <dependency>
-            <groupId>itext-pdf</groupId>
-            <artifactId>itext-pdf</artifactId>
-            <version>5.5.5</version>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>6.8.1</version>
+            <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>itexpdf-5.5.5-javadoc</groupId>
-            <artifactId>itexpdf-5.5.5-javadoc</artifactId>
+            <groupId>com.itextpdf</groupId>
+            <artifactId>itextpdf</artifactId>
             <version>5.5.5</version>
         </dependency>
     </dependencies>
-
+    <name>doramas</name>
 </project>

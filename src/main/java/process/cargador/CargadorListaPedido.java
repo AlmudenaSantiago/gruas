@@ -15,7 +15,7 @@ public class CargadorListaPedido {
         return ejecutarHttpGet();
     }
 
-    private CargadorListaPedido() {
+    public CargadorListaPedido() {
     }
 
     public static CargadorListaPedido getInstance() {

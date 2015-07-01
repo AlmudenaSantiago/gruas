@@ -12,7 +12,7 @@ public class CargadorProductosPedido {
     private static CargadorProductosPedido cargadorProductosPedido;
     private Integer idPedido;
 
-    private CargadorProductosPedido() {
+    public CargadorProductosPedido() {
     }
 
     public static CargadorProductosPedido getInstance() {

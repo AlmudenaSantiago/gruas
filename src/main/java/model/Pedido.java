@@ -43,4 +43,37 @@ public class Pedido {
     public Double getImporte() {
         return importe;
     }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setCliente(String cliente) {
+        this.cliente = cliente;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public void setFechaUltimaModificacion(String fechaUltimaModificacion) {
+        this.fechaUltimaModificacion = fechaUltimaModificacion;
+    }
+
+    public void setFechaCreacion(String fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
+    }
+
+    public void setImporte(Double importe) {
+        this.importe = importe;
+    }
+    
+    
+    
+    
+    
 }
