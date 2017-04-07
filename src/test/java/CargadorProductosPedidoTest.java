@@ -1,7 +1,7 @@
 import model.Producto;
 import org.junit.Test;
 import process.cargador.CargadorProductosPedido;
-import process.parser.ProductoParserJson;
+import process.parser.productos.ProductoParserJson;
 
 import java.util.List;
 

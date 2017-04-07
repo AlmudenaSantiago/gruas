@@ -1,7 +1,7 @@
 import exception.ExceptionPedidoParserJson;
 import model.Pedido;
 import org.junit.Test;
-import process.parser.PedidoParserJson;
+import process.parser.pedidos.ServicioParserJson;
 
 import java.util.List;
 
@@ -12,12 +12,11 @@ public class PedidoParserJsonTest {
 
     @Test
     public void testParsearUnPedidoEnJson() {
-        PedidoParserJson pedidoParserJson = new PedidoParserJson();
+        ServicioParserJson pedidoParserJson = new ServicioParserJson();
         List<Pedido> listaPedido = pedidoParserJson.parsear(crearUnPedidoJson());
         assertTrue(listaPedido.size() > 0);
         assertEquals(new Integer(17), listaPedido.get(0).getId());
-        assertEquals("Loquat", listaPedido.get(0).getCliente());
-        assertEquals("Tablet", listaPedido.get(0).getUsuario());
+
         assertEquals("2015-02-25 00:00:00", listaPedido.get(0).getFechaUltimaModificacion());
         assertEquals("2015-02-25 00:00:00", listaPedido.get(0).getFechaCreacion());
         assertEquals(2.0, listaPedido.get(0).getImporte());
@@ -25,12 +24,11 @@ public class PedidoParserJsonTest {
 
     @Test
     public void testParsearDosPedidosEnJson(){
-        PedidoParserJson pedidoParserJson = new PedidoParserJson();
+        ServicioParserJson pedidoParserJson = new ServicioParserJson();
         List<Pedido> listaPedido = pedidoParserJson.parsear(crearDosPedidosJson());
         assertTrue(listaPedido.size() == 2);
         assertEquals(new Integer(18), listaPedido.get(1).getId());
-        assertEquals("Loquat Solutions", listaPedido.get(1).getCliente());
-        assertEquals("Ipad", listaPedido.get(1).getUsuario());
+
         assertEquals("2015-02-25 00:00:00", listaPedido.get(1).getFechaUltimaModificacion());
         assertEquals("2015-02-25 00:00:00", listaPedido.get(1).getFechaCreacion());
         assertEquals(1.0, listaPedido.get(1).getImporte());
@@ -38,7 +36,7 @@ public class PedidoParserJsonTest {
 
     @Test(expected = ExceptionPedidoParserJson.class)
     public void testIntentarParsearAlgoEnNoFormatoJson(){
-        new PedidoParserJson().parsear("No formato JSON");
+        new ServicioParserJson().parsear("No formato JSON");
     }
 
     private String crearUnPedidoJson() {
@@ -61,16 +59,14 @@ public class PedidoParserJsonTest {
                     "pedidos\":[" +
                         "{" +
                             "\"id\":17," +
-                            "\"cliente\":\"tablet\"," +
-                            "\"usuario\":\"loquat\"," +
+
                             "\"updated_at\":\"2015-02-25 00:00:00\"," +
                             "\"created_at\":\"2015-02-25 00:00:00\"," +
                             "\"importe\":2" +
                         "}," +
                         "{" +
                             "\"id\":18," +
-                            "\"cliente\":\"Loquat Solutions\"," +
-                            "\"usuario\":\"Ipad\"," +
+    
                             "\"updated_at\":\"2015-02-25 00:00:00\"," +
                             "\"created_at\":\"2015-02-25 00:00:00\"," +
                             "\"importe\":1" +

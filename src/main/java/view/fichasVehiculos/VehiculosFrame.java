@@ -1,0 +1,372 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package view.fichasVehiculos;
+
+import DatosPrecargados.SingletonMarcas;
+import command.vehiculos.CargarVehiculosCommand;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.RowFilter;
+import javax.swing.table.TableRowSorter;
+import model.vehiculos.Vehiculo;
+import process.CRUDVehiculos.EliminarVehiculo;
+import process.CRUDVehiculos.InsertarVehiculo;
+import process.cargador.vehiculos.CargadorListaVehiculo;
+import process.parser.vehiculos.VehiculoParserJson;
+
+/**
+ *
+ * @author gruasjoseantonio
+ */
+public class VehiculosFrame extends javax.swing.JFrame {
+
+    TableRowSorter  rowSorter;
+    static List<Vehiculo> lista;
+    private static VehiculosFrame instance;
+    
+    public  static VehiculosFrame getInstance() {
+             if (instance==null) instance= new VehiculosFrame();
+             return instance;
+    
+    }
+    
+    private VehiculosFrame() {
+        initComponents();
+        jScrollPaneVehiculos.setViewportView(JTablaVehiculos.getInstance());
+        actualizarListaVehiculos();
+        rowSorter = new TableRowSorter(JTablaVehiculos.getInstance().getModel());
+        JTablaVehiculos.getInstance().setRowSorter(rowSorter);
+        llenarComboMarcas();
+        setListenerFilter();
+        setListenerComboMarcas();
+      
+      
+        
+    }
+    
+    public  void actualizarListaVehiculos() {
+    
+      CargarVehiculosCommand cargar = new CargarVehiculosCommand(new CargadorListaVehiculo(), new VehiculoParserJson());
+        try {
+            lista = cargar.execute();
+        } catch (IOException ex) {
+            Logger.getLogger(VehiculosFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+        JTablaVehiculos.getInstance().mostrar(lista);
+      
+    
+    }
+
+    
+    public void llenarComboMarcas() {
+    
+        for (int i=0;i<SingletonMarcas.getInstance().getLista().size();i++) {
+            jComboBoxFiltroPorMarca.addItem(SingletonMarcas.getInstance().getLista().get(i).getMarca());
+          }
+        
+            
+    }
+   
+    
+    public void setListenerComboMarcas () {
+            
+            jComboBoxFiltroPorMarca.addItemListener(new ItemListener(){
+                    @Override
+                    public void itemStateChanged(ItemEvent e){
+                        CargarVehiculosCommand cargar = new CargarVehiculosCommand(new CargadorListaVehiculo(), new VehiculoParserJson());
+                        
+                       if (jComboBoxFiltroPorMarca.getSelectedIndex() == 0) {
+                            try {
+                                 lista = cargar.execute();
+                             } catch (IOException ex) {
+                                 Logger.getLogger(VehiculosFrame.class.getName()).log(Level.SEVERE, null, ex);
+                             }
+                         
+                       
+                       } else {
+                         
+                            try {
+                                lista = cargar.executePorMarca(SingletonMarcas.getInstance().getLista().get((jComboBoxFiltroPorMarca.getSelectedIndex())-1).getId());
+                            } catch (IOException ex) {
+                                Logger.getLogger(VehiculosFrame.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        
+                       }
+                        JTablaVehiculos.getInstance().mostrar(lista);
+                    
+                 }
+            });
+    }       
+
+            
+    public void setListenerFilter() {
+
+         jTextFieldFilter.addKeyListener(new KeyAdapter() {
+             @Override
+             public void keyReleased(final KeyEvent e) {
+                 String textofiltro = "";
+
+                 if (jComboBoxFiltrosContieneOEmpieza.getSelectedIndex() == 0) {
+                     textofiltro = "(?i)" + jTextFieldFilter.getText();
+                 } else {
+                     textofiltro = "(?i)^" + jTextFieldFilter.getText();
+                 }
+
+                 repaint();
+                 rowSorter.setRowFilter(RowFilter.regexFilter(textofiltro, columnaPorLaQueFiltrar()));
+              
+
+             }
+         });
+     }        
+    
+    public int columnaPorLaQueFiltrar() {
+    
+        return jComboBoxFiltros.getSelectedIndex()+1;
+    }
+            
+  
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        botonEliminarGrua = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
+        jComboBoxFiltroPorMarca = new javax.swing.JComboBox<>();
+        jLabel1 = new javax.swing.JLabel();
+        jComboBoxFiltros = new javax.swing.JComboBox<>();
+        jComboBoxFiltrosContieneOEmpieza = new javax.swing.JComboBox<>();
+        jTextFieldFilter = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPaneVehiculos = new javax.swing.JScrollPane();
+        botonNuevaGrua1 = new javax.swing.JButton();
+        botonEliminarGrua1 = new javax.swing.JButton();
+
+        botonEliminarGrua.setBackground(new java.awt.Color(255, 255, 255));
+        botonEliminarGrua.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        botonEliminarGrua.setText("Eliminar vehiculo");
+        botonEliminarGrua.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonEliminarGruaActionPerformed(evt);
+            }
+        });
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+        setTitle("Configuración de Vehiculos");
+        setExtendedState(6);
+
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        jComboBoxFiltroPorMarca.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Todos" }));
+
+        jLabel1.setText("Filtrar por");
+
+        jComboBoxFiltros.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Marca", "Modelo", "Tipo", "Peso", "Largo", "Alto" }));
+
+        jComboBoxFiltrosContieneOEmpieza.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Contiene", "Empieza por" }));
+
+        jLabel2.setText("Filtrar por marcas");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jComboBoxFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jComboBoxFiltrosContieneOEmpieza, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jComboBoxFiltroPorMarca, javax.swing.GroupLayout.PREFERRED_SIZE, 201, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jTextFieldFilter, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jComboBoxFiltros, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jComboBoxFiltrosContieneOEmpieza, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jTextFieldFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jComboBoxFiltroPorMarca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        botonNuevaGrua1.setBackground(new java.awt.Color(255, 255, 255));
+        botonNuevaGrua1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        botonNuevaGrua1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/view/fichaCliente/plus.png"))); // NOI18N
+        botonNuevaGrua1.setText("Nuevo vehiculo");
+        botonNuevaGrua1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonNuevaGrua1ActionPerformed(evt);
+            }
+        });
+
+        botonEliminarGrua1.setBackground(new java.awt.Color(255, 255, 255));
+        botonEliminarGrua1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        botonEliminarGrua1.setText("Eliminar vehiculo");
+        botonEliminarGrua1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                botonEliminarGrua1ActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(botonNuevaGrua1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(botonEliminarGrua1, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(jScrollPaneVehiculos, javax.swing.GroupLayout.DEFAULT_SIZE, 810, Short.MAX_VALUE)
+                        .addGap(24, 24, 24))))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(botonNuevaGrua1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(botonEliminarGrua1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPaneVehiculos, javax.swing.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void botonNuevaGrua1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonNuevaGrua1ActionPerformed
+        try {
+            Vehiculo vehiculoR = new Vehiculo();
+            InsertarVehiculo registrador = new InsertarVehiculo(vehiculoR);
+            Vehiculo v = registrador.inserta().get(0);
+
+            new FichaVehiculo(v).setVisible(true);
+            //SingletonGruas.getInstance().actualizarLista();
+            /// tabla.mostrarGruas(SingletonGruas.getInstance().getLista());
+        } catch (Exception ex) {
+            Logger.getLogger(FichaVehiculo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_botonNuevaGrua1ActionPerformed
+
+    private void botonEliminarGruaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarGruaActionPerformed
+       
+
+    }//GEN-LAST:event_botonEliminarGruaActionPerformed
+
+    private void botonEliminarGrua1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_botonEliminarGrua1ActionPerformed
+        try {
+            Vehiculo v = new Vehiculo();
+            v.setId(Integer.parseInt(JTablaVehiculos.getInstance().getValueAt(JTablaVehiculos.getInstance().getSelectedRow(), 0).toString()));
+            EliminarVehiculo eliminar = new EliminarVehiculo(v);
+            eliminar.elimina();
+            actualizarListaVehiculos();
+            //SingletonGruas.getInstance().actualizarLista();
+            // tabla.mostrarGruas(SingletonGruas.getInstance().getLista());
+        } catch (Exception ex) {
+            Logger.getLogger(FichaVehiculo.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }//GEN-LAST:event_botonEliminarGrua1ActionPerformed
+
+   
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(VehiculosFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(VehiculosFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(VehiculosFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(VehiculosFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
+            public void run() {
+                VehiculosFrame.getInstance().setVisible(true);
+            }
+        });
+    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton botonEliminarGrua;
+    private javax.swing.JButton botonEliminarGrua1;
+    private javax.swing.JButton botonNuevaGrua1;
+    private javax.swing.JComboBox<String> jComboBoxFiltroPorMarca;
+    private javax.swing.JComboBox<String> jComboBoxFiltros;
+    private javax.swing.JComboBox<String> jComboBoxFiltrosContieneOEmpieza;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPaneVehiculos;
+    private javax.swing.JTextField jTextFieldFilter;
+    // End of variables declaration//GEN-END:variables
+}

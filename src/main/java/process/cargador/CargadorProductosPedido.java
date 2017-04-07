@@ -18,8 +18,8 @@ public class CargadorProductosPedido {
     public static CargadorProductosPedido getInstance() {
         if (cargadorProductosPedido == null) {
             cargadorProductosPedido = new CargadorProductosPedido();
-        }
-        return cargadorProductosPedido;
+          }
+         return cargadorProductosPedido;
     }
 
     public String cargar(Integer idPedido) {
@@ -37,7 +37,7 @@ public class CargadorProductosPedido {
 
     private HttpGet crearHttpGet() {
         HttpGet request =
-                new HttpGet("http://doramas.loquatsolutions.com/api/listaProductosPedido/" + idPedido.toString());
+                new HttpGet("http://localhost/gruas/gruas/api/listaProductosPedido/" + idPedido.toString());
         request.setHeader("content-type", "application/json");
         return request;
     }

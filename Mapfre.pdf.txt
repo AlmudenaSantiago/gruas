@@ -1,0 +1,39 @@
+C:\Users\gruasjoseantonio\Documents\Mapfre\Mapfre.pdfjava.awt.Rectangle[x=0,y=0,width=841,height=1024] ALBARÁN 24/01/2017 18:26:09
+Empresa GRUAS JOSE ANTONIO, S.L.
+Código Proveedor G35837 Fecha 24/01/2017 17:23
+Datos servicio
+Expediente 147A0085594/20170124_182334
+_1147A0085594
+Código Cía. MAPFRE
+Compañía MAPFRE ESPAÑA
+Grúa Chófer
+G-17 17 (G-17 AF)
+Datos conductor
+Conductor MARIA DEL CARMEN
+GONZALEZ
+Teléfono1 696377356
+Teléfono2
+Datos Vehículo
+Matrícula GC 0701CB Versión
+Marca SEAT CORDOBA VARIO 1.6 SE Cod. avería
+Modelo Desc. avería AVERIA EMBRAGUE
+Color GRIS ROJO Tipo
+Vehículo
+Ubicación Vehículo
+Recogida En Población Provincia Las Palmas
+Lugar CALLE EL CALLAO 2  LAS PALMAS DE GRAN
+CANARIA
+Localidad LAS PALMAS
+DE GRAN
+CANARIA
+Km Totales País ESPAÑA
+Entrega En Población Provincia Las Palmas
+Lugar ANGOSTILLO 17 LOMO SAN PEDRO MARIA  DEL
+CARMEN GONZALEZ
+Localidad ARUCAS
+Reparado in
+situ
+No País
+TIREA - Tecnologías de la Información y Redes para las
+Entidades Aseguradoras
+Página 1

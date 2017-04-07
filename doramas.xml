@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project name="doramas" default="all">
+<project name="funiculi" default="all">
   
   
-  <property file="doramas.properties"/>
+  <property file="funiculi.properties"/>
   <!-- Uncomment the following property if no tests compilation is needed -->
   <!-- 
   <property name="skip.tests" value="true"/>
@@ -144,15 +144,15 @@
   
   <!-- Modules -->
   
-  <import file="${basedir}/module_doramas.xml"/>
+  <import file="${basedir}/module_funiculi.xml"/>
   
   <target name="init" description="Build initialization">
     <!-- Perform any build initialization in this target -->
   </target>
   
-  <target name="clean" depends="clean.module.doramas" description="cleanup all"/>
+  <target name="clean" depends="clean.module.funiculi" description="cleanup all"/>
   
-  <target name="build.modules" depends="init, clean, compile.module.doramas" description="build all modules"/>
+  <target name="build.modules" depends="init, clean, compile.module.funiculi" description="build all modules"/>
   
   <target name="all" depends="build.modules" description="build all"/>
 </project>

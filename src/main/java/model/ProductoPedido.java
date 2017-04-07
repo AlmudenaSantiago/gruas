@@ -5,6 +5,16 @@ public class ProductoPedido {
     private Integer producto_id;
     private Integer pedido_id;
     private Double cantidad;
+    private String variaciones;
+
+
+    public String getVariaciones() {
+        return variaciones;
+    }
+
+    public void setVariaciones(String variaciones) {
+        this.variaciones = variaciones;
+    }
 
     public Integer getProducto_id() {
         return producto_id;

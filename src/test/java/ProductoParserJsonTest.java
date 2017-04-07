@@ -1,7 +1,7 @@
 import exception.ExceptionProductoParserJson;
 import model.Producto;
 import org.junit.Test;
-import process.parser.ProductoParserJson;
+import process.parser.productos.ProductoParserJson;
 
 import java.util.List;
 
@@ -34,6 +34,7 @@ public class ProductoParserJsonTest {
                                             "\"pedido_id\": 20," +
                                             "\"producto_id\": 1," +
                                             "\"cantidad\": 2.00" +
+                                            "\"variaciones\": fria" +
                                         "}" +
                     "}," +
                     "{" +
@@ -47,6 +48,7 @@ public class ProductoParserJsonTest {
                                         "\"pedido_id\":20," +
                                         "\"producto_id\":2," +
                                         "\"cantidad\":3.00" +
+                                        "\"variaciones\": fria" +
                                     "}"+
                     "}"+
                 "]";
